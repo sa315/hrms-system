@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String        @unique
+  mobile       String
+  salary       Float
+  createdAt    DateTime      @default(now())
+
+  attendances  Attendance[]
+}
+
+model Attendance {
+  id          Int      @id @default(autoincrement())
+  employeeId  Int
+  checkIn     String
+  checkOut    String?
+  latitude    Float
+  longitude   Float
+  status      String
+  createdAt   DateTime @default(now())
+
+  employee Employee @relation(fields: [employeeId], references: [id])
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("employee")
+  createdAt DateTime @default(now())
+}
+
+model Leave {
+  id           Int      @id @default(autoincrement())
+  employeeId   Int
+  employeeName String
+  reason       String
+  status       String   @default("Pending")
+  startDate    String
+  endDate      String
+  createdAt    DateTime @default(now())
+}
+
+model Payroll {
+  id           Int      @id @default(autoincrement())
+  employeeId   Int
+  employeeName String
+  amount       Float
+  month        String
+  status       String   @default("Pending")
+  createdAt    DateTime @default(now())
+}
