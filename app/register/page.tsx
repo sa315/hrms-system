@@ -103,12 +103,14 @@ export default function RegisterPage() {
             className="w-full p-3 rounded-lg bg-gray-800 border border-gray-700"
           >
             <option value="employee">
-              Employee
+              Permanent Employee
             </option>
 
-            <option value="admin">
-              Admin
+            <option value="employee">
+              Temporary Employee 
             </option>
+
+
           </select>
 
           <button
